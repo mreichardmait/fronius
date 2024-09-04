@@ -1,3 +1,6 @@
-Hallo Welt
-Klapp es Update?
-Klappt es jetzt
+<select id="Gerät" onchange="Skript_selectedArea()">
+<option selected="selected">-</option>
+<option>                      Gerät1  </option>
+<option>                      Gerät2   </option>
+</select>
+ 
