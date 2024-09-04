@@ -1,0 +1,6 @@
+<select id="Gerät_Auswahl" onchange="Skript_selectedArea()">
+  <option selected="selected">  Gerät 1  </option>
+  <option>                      Gerät 2  </option>
+  <option>                      Gerät 3  </option>
+</select>
+ 
