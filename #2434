@@ -1,0 +1,60 @@
+#include <iostream>
+#include <thread>
+#include <chrono>
+using namespace std;
+
+class Cooler {
+private:
+    int rpm; // Cooler RPM
+    int minRPM;
+    int maxRPM;
+
+public:
+    Cooler(int minRPM, int maxRPM) : rpm(minRPM), minRPM(minRPM), maxRPM(maxRPM) {}
+
+    void adjustRPM(int temp) {
+        if (temp < 30) {
+            rpm = minRPM;
+        } else if (temp >= 30 && temp < 60) {
+            rpm = minRPM + (maxRPM - minRPM) / 2;
+        } else {
+            rpm = maxRPM;
+        }
+    }
+
+    int getRPM() const {
+        return rpm;
+    }
+};
+
+class TemperatureSensor {
+public:
+    int getTemperature() const {
+        // Simulate temperature reading (for demo purposes)
+        return rand() % 70; // random temp between 0-70 degrees Celsius
+    }
+};
+
+void monitorTemperature(Cooler& cooler, const TemperatureSensor& sensor) {
+    while (true) {
+        int currentTemp = sensor.getTemperature();
+        cooler.adjustRPM(currentTemp);
+
+        cout << "Current Temperature: " << currentTemp << "C\n";
+        cout << "Cooler RPM adjusted to: " << cooler.getRPM() << " RPM\n\n";
+
+        // Sleep for a while before next reading
+        this_thread::sleep_for(chrono::seconds(2));
+    }
+}
+
+int main() {
+    // Cooler with min RPM of 800 and max RPM of 3000
+    Cooler cooler(800, 3000);
+    TemperatureSensor sensor;
+
+    cout << "Starting temperature monitoring...\n";
+    monitorTemperature(cooler, sensor);
+
+    return 0;
+}
